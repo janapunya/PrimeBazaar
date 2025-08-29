@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "https://prime-bazaar-seven.vercel.app",
+    origin: "https://prime-bazaar-o6wp.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
