@@ -33,7 +33,7 @@ passport.use(new GoogleStrategy({
     
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL:" https://primebazaar-pjal.onrender.com/google_oauth/responce",
+    callbackURL:"/google_oauth/responce",
 }, (accessToken, refreshToken, profile, done) => {
     const userObj = {
         googleId: profile.id,
