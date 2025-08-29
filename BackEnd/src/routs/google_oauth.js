@@ -1,0 +1,71 @@
+const express=require('express');
+const router=express.Router();
+const passport = require("passport");
+const session = require("express-session");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
+
+
+router.use(express.json());
+
+const user = [];
+
+router.use(session({
+    secret: "punya",       
+    resave: false,
+    saveUninitialized: false
+}));
+
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+
+passport.serializeUser((userObj, done) => {
+    done(null, userObj);
+});
+
+passport.deserializeUser((userObj, done) => {
+    done(null, userObj);
+});
+
+passport.use(new GoogleStrategy({
+    
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: process.env.CALLBACK_URL,
+}, (accessToken, refreshToken, profile, done) => {
+    const userObj = {
+        googleId: profile.id,
+        name: profile.displayName,
+        email: profile.emails[0].value,
+        imgUrl:profile.photos[0].value
+    };
+
+    user[0] = userObj;
+
+    return done(null, userObj);
+}));
+
+
+router.get("/google_check",
+    passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get("/responce",
+    passport.authenticate("google", { failureRedirect: "/" }),
+    (req, res) => {
+        res.redirect(`http://localhost:5173/Sign_up`);
+    }
+)
+
+router.get("/user", (req, res) => {
+    if (req.isAuthenticated()) {
+        res.json(req.user);
+        user.length = 0;
+    } else {
+        res.status(401).json({ message: "Not logged in" });
+    }
+});
+
+module.exports=router;
