@@ -60,12 +60,8 @@ router.get("/responce",
 )
 
 router.get("/user", (req, res) => {
-    if (req.isAuthenticated()) {
         res.json(req.user);
         user.length = 0;
-    } else {
-        res.status(401).json({ message: "Not logged in" });
-    }
 });
 
 module.exports=router;
