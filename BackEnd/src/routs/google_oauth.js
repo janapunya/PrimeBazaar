@@ -33,7 +33,7 @@ passport.use(new GoogleStrategy({
     
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL:"/google_oauth/responce",
+    callbackURL:"/responce",
 }, (accessToken, refreshToken, profile, done) => {
     const userObj = {
         googleId: profile.id,
