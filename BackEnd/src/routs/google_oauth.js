@@ -51,18 +51,13 @@ passport.use(new GoogleStrategy({
 router.get("/google_check",
     passport.authenticate("google", { scope: ["profile", "email"] })
 );
+
 router.get("/responce",
-    passport.authenticate("google", { failureRedirect: "/login" }),
+    passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
-      res.redirect("/");
+        res.redirect(`https://prime-bazaar-seven.vercel.app/Sign_Up`);
     }
-  );
-// router.get("/responce",
-//     passport.authenticate("google", { failureRedirect: "/" }),
-//     (req, res) => {
-//         res.redirect(`https://prime-bazaar-seven.vercel.app/Sign_Up`);
-//     }
-// )
+)
 
 router.get("/user", (req, res) => {
     if (req.isAuthenticated()) {
