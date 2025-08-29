@@ -33,7 +33,7 @@ passport.use(new GoogleStrategy({
     
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL:" http://localhost:3000/google_oauth/responce",
+    callbackURL:" https://primebazaar-pjal.onrender.com/google_oauth/responce",
 }, (accessToken, refreshToken, profile, done) => {
     const userObj = {
         googleId: profile.id,
@@ -55,7 +55,7 @@ router.get("/google_check",
 router.get("/responce",
     passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
-        res.redirect(`http://localhost:5173/Sign_up`);
+        res.redirect(`https://prime-bazaar-seven.vercel.app/Sign_up`);
     }
 )
 
