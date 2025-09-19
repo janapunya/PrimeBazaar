@@ -54,11 +54,12 @@ const Sign_Up = () => {
         });
         if (check.data == false) {
           if(res.data.email != null){
-
+            console.log("check");
             navigate('/userData', { state: { email: res.data.email, name: res.data.name } });
           }
         }
         else {
+          console.log("check2")
           navigate('/Display');
         }
       } catch (err) {
