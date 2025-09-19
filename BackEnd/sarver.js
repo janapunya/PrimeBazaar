@@ -27,8 +27,13 @@ app.use(cookieParser());
 app.use(cors({
     origin: "https://prime-bazaar-one.vercel.app",
     methods: ["GET", "POST", "OPTIONS"],
-    credentials: true
-}));
+    credentials: true,
+  }));
+
+  app.options("*", cors({
+    origin: "https://prime-bazaar-one.vercel.app",
+    credentials: true,
+  }));
 
 app.use(session({
     secret: "punya",       
