@@ -40,15 +40,17 @@ router.post("/checkUser", async (req,res)=>{
             res.send(false);
         }
         else{
-            const token =jwt.sign({ email },process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
-            res.cookie("auth_token", token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "none",
-                maxAge: 86400000,
-              });
+            const token =jwt.sign(email ,process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
+            console.log(token)
+            res.cookie("auth_token", token);
             res.send(true);
         }
+        // , {
+        //     httpOnly: true,
+        //     secure: process.env.NODE_ENV === "production",
+        //     sameSite: "none",
+        //     maxAge: 86400000,
+        //   }
     }
     catch(err){
         console.log(err);

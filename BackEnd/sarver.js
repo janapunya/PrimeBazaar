@@ -30,10 +30,6 @@ app.use(cors({
     credentials: true,
   }));
 
-  app.options("*", cors({
-    origin: "https://prime-bazaar-one.vercel.app",
-    credentials: true,
-  }));
 
 app.use(session({
     secret: "punya",       
