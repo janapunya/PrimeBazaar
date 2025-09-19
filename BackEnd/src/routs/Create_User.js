@@ -41,12 +41,11 @@ router.post("/checkUser", async (req,res)=>{
         }
         else{
             const token = jwt.sign(
-                { email },
+                 email ,
                 process.env.VWT_COOKIE_SECRET,
                 { expiresIn: "1d" }
               );
         
-            console.log(token)
             res.cookie("auth_token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
