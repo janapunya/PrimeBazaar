@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance =axios.create({
-    baseURL:"https://primebazaarbackend.onrender.com/",
+    baseURL:"https://primebazaarbackend.onrender.com",
     withCredentials:true    
 });
 export default instance;
