@@ -7,7 +7,7 @@ const connectdb= require('./src/db/connectdb')
 
 const cors = require('cors');
 const cookie = require('cookie-parser');
-
+const session = require("express-session");
 const otp=require('./src/routs/otp')
 const google_oauth=require('./src/routs/google_oauth')
 const userData=require('./src/routs/Create_User');
@@ -30,7 +30,7 @@ app.use(cors({
     credentials: true
 }));
 
-router.use(session({
+app.use(session({
     secret: "punya",       
     resave: false,
     saveUninitialized: false,

@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const passport = require("passport");
-const session = require("express-session");
+
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 
