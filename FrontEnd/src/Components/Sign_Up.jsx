@@ -58,7 +58,6 @@ const Sign_Up = () => {
           }
         }
         else {
-          console.log("check2")
           navigate('/Display');
         }
       } catch (err) {

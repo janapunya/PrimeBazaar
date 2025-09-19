@@ -41,12 +41,12 @@ router.post("/checkUser", async (req,res)=>{
         }
         else{
             const token =jwt.sign({ email },process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
-            res.cookie('auth_token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
-            maxAge: 86400000, 
-          });
+            res.cookie("auth_token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "none",
+                maxAge: 86400000,
+              });
             res.send(true);
         }
     }
