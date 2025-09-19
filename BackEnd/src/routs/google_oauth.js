@@ -55,7 +55,7 @@ router.get("/google_check",
 router.get("/responce",
     passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
-        res.redirect(`https://primebazaarbackend.onrender.com/Sign_Up`);
+        res.redirect(`https://prime-bazaar-one.vercel.app/Sign_Up`);
     }
 )
 
