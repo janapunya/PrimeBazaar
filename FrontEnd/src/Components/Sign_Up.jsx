@@ -52,8 +52,8 @@ const Sign_Up = () => {
         const check = await axios.post('/userData/checkUser', {
           email: res.data.email,
         });
-        console.log(check.data)
         if (check.data == false) {
+          console.log(res.data.email)
           if(res.data.email != null){
             console.log("check");
             navigate('/userData', { state: { email: res.data.email, name: res.data.name } });
