@@ -8,7 +8,6 @@ const Deader = () => {
         try {
           const res = await axios.get('/check_user/UserData');
           setCheckuser(res.data)
-          console.log(res)
         } catch (error) {
           console.log(error);
         }

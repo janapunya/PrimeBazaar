@@ -34,18 +34,18 @@ router.post("/newUser", async (req,res)=>{
 
 router.post("/checkUser", async (req,res)=>{
     const {email}= req.body || "";
+    console.log(email)
     try{
+        if(email == ""){
+            res.send(false);
+        }
         const responce= await user.findOne({email:email});
         if(!responce){
             res.send(false);
         }
         else{
-            const token = jwt.sign(
-                 email ,
-                process.env.VWT_COOKIE_SECRET,
-                { expiresIn: "1d" }
-              );
-        
+            const token =jwt.sign(email ,process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
+            console.log(token)
             res.cookie("auth_token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",

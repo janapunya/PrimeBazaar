@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 
 router.get('/UserData',(req,res)=>{
     const cookie = req.cookies.auth_token|| " ";
-    console.log(cookie);
     try{
         if(cookie == " "){
             return res.send(false);
