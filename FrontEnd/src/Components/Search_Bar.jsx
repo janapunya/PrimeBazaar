@@ -12,7 +12,7 @@ const Search_Bar = () => {
   const handleSearch = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('/product/searchProduct', {
+      const res = await axios.post('/search/searchProduct', {
         searchQuery
       })
       setProducts(res.data)

@@ -36,7 +36,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true,
+      secure: process.env.NODE_ENV === "production",
         sameSite: "none"
       }
 }));
@@ -51,7 +51,7 @@ app.use('/seller',SellerAccount)
 app.use('/product',Product)
 app.use('/like',Likeproduct)
 app.use('/order',Order)
-app.use('/product',searchProduct)
+app.use('/search',searchProduct)
 
 connectdb();
 app.listen(3000);
