@@ -43,7 +43,7 @@ router.post("/checkUser", async (req,res)=>{
             const token =jwt.sign(email,process.env.VWT_COOKIE_SECRET);
             res.cookie('auth_token', token, {
             httpOnly: true,
-            // secure: true,
+             secure: "production",
             sameSite: "none",
             maxAge: 86400000, 
           });
