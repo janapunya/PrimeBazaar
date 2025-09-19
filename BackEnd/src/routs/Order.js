@@ -7,7 +7,7 @@ const user =require('../models/user.model')
 
 router.post('/email', async (req,res)=>{
     try{
-        const token = await req.cookies.auth_token || "";
+        const {token} = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET);
         if(!tokenData){
             return res.status(500).json({
@@ -25,7 +25,7 @@ router.post('/email', async (req,res)=>{
 
 router.post('/PlaceOrder', async (req,res)=>{
     try{
-        const token = await req.cookies.auth_token || "";
+        const {token} = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET);
 
         const {productName, AddressId, qty, unitPrice, subtotal, SellerEmail}= req.body;

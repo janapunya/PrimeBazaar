@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const user= require('../models/user.model');
 const address =require('../models/address.model')
 router.post('/About_user', async (req,res)=>{
-    const cookie= req.cookies.auth_token;
+    const {cookie}= req.cookies.auth_token;
     try{
         if(!cookie){
             return res.json({

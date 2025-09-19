@@ -9,7 +9,7 @@ const Product = require('../models/product.model');
 router.post('/CreateLike', async (req,res)=>{
     try{
         const {id}=req.body;
-        const token = await req.cookies.auth_token || "";
+        const {token} = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
         if(!tokenData){
             return res.status(500).json({
@@ -34,7 +34,7 @@ router.post('/CreateLike', async (req,res)=>{
 router.post('/DeleteLike', async (req,res)=>{
     try{
         const {id}=req.body;
-        const token = await req.cookies.auth_token || "";
+        const {token} = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
         if(!tokenData){
             return res.status(500).json({
@@ -54,7 +54,7 @@ router.post('/DeleteLike', async (req,res)=>{
 
 router.post('/Likedata', async (req,res)=>{
     try{
-        const token = await req.cookies.auth_token || "";
+        const {token} = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
         if(!tokenData){
             return res.status(500).json({
@@ -74,7 +74,7 @@ router.post('/Likedata', async (req,res)=>{
 router.post('/LikedataAll', async (req,res)=>{
     try{
         const FullData=[];
-        const token = await req.cookies.auth_token || "";
+        const {token} = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
         if(!tokenData){
             return res.status(500).json({
