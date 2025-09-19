@@ -34,7 +34,7 @@ const Sign_Up = () => {
 
   const google_oauth = (e) => {
     e.preventDefault();
-    window.location.href = 'http://localhost:3000/google_oauth/google_check';
+    window.location.href = 'https://primebazaarbackend.onrender.com/google_oauth/google_check';
   };
 
 
