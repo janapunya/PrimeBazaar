@@ -37,28 +37,26 @@ router.post("/checkUser", async (req,res)=>{
     console.log(email)
     try{
         if(email == ""){
-            res.send(false);
+            return res.send(false);
         }
         const responce= await user.findOne({email:email});
         if(!responce){
-            res.send(false);
+           return res.send(false);
         }
         else{
             const token =jwt.sign({email} ,process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
-            console.log(token)
             res.cookie("auth_token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "none",
                 maxAge: 86400000,
               });
-            res.send(true);
+            return res.send(true);
         }
         
     }
     catch(err){
-        console.log(err);
-        res.status(500).json({
+       return res.status(500).json({
             message:"Error checking user",
             error: err.message
         })
