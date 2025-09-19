@@ -53,9 +53,7 @@ const Sign_Up = () => {
           email: res.data.email|| "",
         });
         if (check.data == false) {
-          console.log(res.data.email)
           if(res.data.email != null){
-            console.log("check");
             navigate('/userData', { state: { email: res.data.email, name: res.data.name } });
           }
         }
