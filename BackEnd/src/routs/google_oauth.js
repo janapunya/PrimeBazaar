@@ -13,7 +13,11 @@ const user = [];
 router.use(session({
     secret: "punya",       
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        sameSite: "none"
+      }
 }));
 
 
