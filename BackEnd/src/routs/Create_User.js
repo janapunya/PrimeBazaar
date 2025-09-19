@@ -40,10 +40,10 @@ router.post("/checkUser", async (req,res)=>{
             res.send(false);
         }
         else{
-            const token =jwt.sign(email,process.env.VWT_COOKIE_SECRET);
+            const token =jwt.sign({ email },process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
             res.cookie('auth_token', token, {
             httpOnly: true,
-             secure: "production",
+            secure: process.env.NODE_ENV === "production",
             sameSite: "none",
             maxAge: 86400000, 
           });
