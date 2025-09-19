@@ -10,15 +10,7 @@ router.use(express.json());
 
 const user = [];
 
-router.use(session({
-    secret: "punya",       
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: true,
-        sameSite: "none"
-      }
-}));
+
 
 
 router.use(passport.initialize());

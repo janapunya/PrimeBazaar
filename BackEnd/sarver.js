@@ -27,10 +27,19 @@ app.use(cookieParser());
 app.use(cors({
     origin: "https://prime-bazaar-one.vercel.app",
     methods: ["GET", "POST"],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['set-cookie']
+    credentials: true
 }));
+
+router.use(session({
+    secret: "punya",       
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        sameSite: "none"
+      }
+}));
+
 app.use('/otp',otp)
 app.use('/google_oauth',google_oauth)
 app.use('/userData',userData)
