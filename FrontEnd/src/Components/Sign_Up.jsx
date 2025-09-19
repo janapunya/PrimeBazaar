@@ -50,7 +50,7 @@ const Sign_Up = () => {
         const res = await axios.get('/google_oauth/user');
 
         const check = await axios.post('/userData/checkUser', {
-          email: res.data.email,
+          email: res.data.email|| "",
         });
         if (check.data == false) {
           console.log(res.data.email)
