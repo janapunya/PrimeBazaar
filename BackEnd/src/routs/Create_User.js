@@ -36,7 +36,6 @@ router.post("/checkUser", async (req,res)=>{
     const {email}= req.body || "";
     try{
         const responce= await user.findOne({email:email});
-        console.log(responce)
         if(!responce){
             res.send(false);
         }
@@ -44,7 +43,8 @@ router.post("/checkUser", async (req,res)=>{
             const token =jwt.sign(email,process.env.VWT_COOKIE_SECRET);
             res.cookie('auth_token', token, {
             httpOnly: true,
-            secure: true,
+            // secure: true,
+            sameSite: "none",
             maxAge: 86400000, 
           });
             res.send(true);
