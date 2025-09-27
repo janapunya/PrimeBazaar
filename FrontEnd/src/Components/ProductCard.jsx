@@ -87,6 +87,7 @@ const ProdutsCard = (props) => {
           const isLiked = Likedata.some(
             (d) => d.Productid === product._id && d.status
           );
+
           return (
             <div
             key={product._id ?? index}
@@ -94,7 +95,7 @@ const ProdutsCard = (props) => {
             >
               {product.discount > 0 && (
                 <span className="absolute top-4 right-4 bg-zinc-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-                  -{product.discount}% <span className="text-green-400">off</span>
+                  -{product.discount}% <span className="text-green-500">off</span>
                 </span>
               )}
 
