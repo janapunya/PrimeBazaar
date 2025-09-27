@@ -7,15 +7,16 @@ const user =require('../models/user.model')
 
 router.post('/email', async (req,res)=>{
     try{
-        const {token} = await req.cookies.auth_token || "";
+        const token = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET);
         if(!tokenData){
             return res.status(500).json({
                 message:"Unauthorized user"
             })
         };
+        console.log(tokenData.emsil)
         return res.json({
-            email:tokenData,
+            email:tokenData.email,
         })
     }
     catch(err){
@@ -25,12 +26,12 @@ router.post('/email', async (req,res)=>{
 
 router.post('/PlaceOrder', async (req,res)=>{
     try{
-        const {token} = await req.cookies.auth_token || "";
+        const token = await req.cookies.auth_token || "";
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET);
 
         const {productName, AddressId, qty, unitPrice, subtotal, SellerEmail}= req.body;
         const address= await Address.findOne({_id:AddressId});
-        const customerName= (await user.findOne({email:tokenData})).name;
+        const customerName= (await user.findOne({email:tokenData.email})).name;
 
         if(!address){
             return res.status(500).json({

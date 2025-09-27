@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const user= require('../models/user.model');
 const address =require('../models/address.model')
 router.post('/About_user', async (req,res)=>{
-    const {cookie}= req.cookies.auth_token;
+    const cookie= req.cookies.auth_token;
     try{
         if(!cookie){
             return res.json({
@@ -12,7 +12,7 @@ router.post('/About_user', async (req,res)=>{
             })
         }
         const check= jwt.verify(cookie,process.env.VWT_COOKIE_SECRET);
-        const userData =await user.findOne({email:check});
+        const userData =await user.findOne({email:check.email});
         if(!userData){
             return res.json({
                 message:'user Not found'

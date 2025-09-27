@@ -3,14 +3,13 @@ const router = express.Router();
 const Like = require('../models/Like.model');
 const user = require('../models/user.model');
 const jwt =require("jsonwebtoken");
-const { findOneAndDelete } = require('../models/address.model');
 const Product = require('../models/product.model');
 
 router.post('/CreateLike', async (req,res)=>{
     try{
         const {id}=req.body;
-        const {token} = await req.cookies.auth_token || "";
-        const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
+        const token = await req.cookies.auth_token;
+        const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET);
         if(!tokenData){
             return res.status(500).json({
                 message:"Unauthorized user"
@@ -18,7 +17,7 @@ router.post('/CreateLike', async (req,res)=>{
         };
         await new Like({
             Productid:id,
-            Useremail:tokenData,
+            Useremail:tokenData.email,
             status:true
         }).save();
         res.status(200).json({
@@ -34,14 +33,14 @@ router.post('/CreateLike', async (req,res)=>{
 router.post('/DeleteLike', async (req,res)=>{
     try{
         const {id}=req.body;
-        const {token} = await req.cookies.auth_token || "";
+        const token = await req.cookies.auth_token;
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
         if(!tokenData){
             return res.status(500).json({
                 message:"Unauthorized user"
             })
         };
-        const data = await Like.findOneAndDelete({Productid:id,Useremail:tokenData});
+        const data = await Like.findOneAndDelete({Productid:id,Useremail:tokenData.email});
         res.status(200).json({
             message:"done"
         })
@@ -54,7 +53,7 @@ router.post('/DeleteLike', async (req,res)=>{
 
 router.post('/Likedata', async (req,res)=>{
     try{
-        const {token} = await req.cookies.auth_token || "";
+        const token = await req.cookies.auth_token;
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
         if(!tokenData){
             return res.status(500).json({
@@ -62,7 +61,7 @@ router.post('/Likedata', async (req,res)=>{
             })
         };
 
-        const data= await Like.find({Useremail:tokenData});
+        const data= await Like.find({Useremail:tokenData.email});
         return res.status(200).json(data);
 
     }
@@ -74,7 +73,7 @@ router.post('/Likedata', async (req,res)=>{
 router.post('/LikedataAll', async (req,res)=>{
     try{
         const FullData=[];
-        const {token} = await req.cookies.auth_token || "";
+        const token = await req.cookies.auth_token;
         const tokenData=  jwt.verify(token,process.env.VWT_COOKIE_SECRET)
         if(!tokenData){
             return res.status(500).json({
@@ -82,7 +81,7 @@ router.post('/LikedataAll', async (req,res)=>{
             })
         };
 
-        const data= await Like.find({Useremail:tokenData});
+        const data= await Like.find({Useremail:tokenData.email});
         for (const d of data) {
             const product = await Product.findById(d.Productid);
             if (product) {

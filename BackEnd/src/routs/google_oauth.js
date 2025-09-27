@@ -56,7 +56,8 @@ router.get("/responce",
 )
 
 router.get("/user", (req, res) => {
-        res.json(req.user);
+
+        res.json(user[0]||"");
         user.length = 0;
 });
 

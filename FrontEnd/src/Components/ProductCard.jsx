@@ -8,12 +8,12 @@ const placeholderImg =
 const ProdutsCard = (props) => {
   const incoming = props.data ?? props.products ?? [];
   const navigate = useNavigate();
-
   const [ProductData, setProductData] = useState([]);
   const [Likedata, setLikedata] = useState([]);
 
   const [Checkuser,setCheckuser]=useState(false)
   useEffect(()=>{
+    setProductData(incoming)
       const fetchData = async () => {
         try {
           const res = await axios.get('/check_user/UserData');
@@ -24,13 +24,8 @@ const ProdutsCard = (props) => {
       };
       fetchData();
       fatchlikedata();
-  },[])
-  // fetch likedata once on mount
-  // useEffect(() => {
-    
-  // }, []);
+  },[incoming])
 
-  // normalize incoming products into an array and set state when incoming changes
   useEffect(() => {
     let arr = [];
     if (Array.isArray(incoming)) {
@@ -48,7 +43,7 @@ const ProdutsCard = (props) => {
     try {
 
       const res = await axios.post('/like/Likedata');
-      setLikedata(Array.isArray(res.data) ? res.data : []);
+      setLikedata( res.data );
     } catch (err) {
       console.error('fetch likedata error', err);
     }
@@ -56,16 +51,7 @@ const ProdutsCard = (props) => {
 
 
   const likestutas = async (id, status) => {
-
-    setLikedata((prev) => {
-      if (status) {
-        return prev.filter((d) => d.Productid !== id);
-      } else {
-
-        return [...prev, { Productid: id, status: true }];
-      }
-    });
-
+    
     try {
       if (status) {
         await axios.post('/like/DeleteLike', { id });
@@ -78,6 +64,17 @@ const ProdutsCard = (props) => {
 
       fatchlikedata();
     }
+
+    setLikedata((prev) => {
+      if (status) {
+        console.log(prev.filter((d) => d.Productid !== id))
+        return prev.filter((d) => d.Productid !== id);
+      } else {
+
+        return [...prev, { Productid: id, status: true }];
+      }
+    });
+
   };
 
   return (
@@ -90,10 +87,9 @@ const ProdutsCard = (props) => {
           const isLiked = Likedata.some(
             (d) => d.Productid === product._id && d.status
           );
-
           return (
             <div
-              key={product._id ?? index}
+            key={product._id ?? index}
               className="bg-white rounded-sm shadow-lg hover:shadow-2xl transition-shadow p-5 flex flex-col relative group border border-zinc-100 hover:border-zinc-400"
             >
               {product.discount > 0 && (

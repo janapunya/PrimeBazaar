@@ -38,6 +38,7 @@ export default function Order() {
   const addres_Data = async () => {
     try {
         const edata= await axios.post('/order/email')
+        console.log(edata.data)
         const res = await axios.post("/address/address_check", { email:edata.data.email});
         setAddresses(res.data);
     } catch (err) {

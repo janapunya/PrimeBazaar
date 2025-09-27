@@ -10,11 +10,12 @@ const About_User = () => {
 
   useEffect(() => {
     fetchData();
-  });
+  },[]);
   
   const fetchData = async () => {
     try {
       const res = await axios.post('/data/About_user');
+      console.log(res)
       setData(res.data);
     } catch (err) {
       console.error("Failed to fetch user data:", err);

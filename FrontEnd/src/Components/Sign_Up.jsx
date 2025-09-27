@@ -20,7 +20,6 @@ const Sign_Up = () => {
       try {
         const res = await axios.post('/otp/otpsend', { email });
         setOtpdata(res.data.otp)
-        console.log(Otpdata)
         useSubmitcheck(res.data.valu)
 
       } catch (error) {
@@ -34,6 +33,7 @@ const Sign_Up = () => {
 
   const google_oauth = (e) => {
     e.preventDefault();
+    // window.location.href = 'https://primebazaarbackend.onrender.com/google_oauth/google_check';
     window.location.href = 'https://primebazaarbackend.onrender.com/google_oauth/google_check';
   };
 
@@ -52,8 +52,9 @@ const Sign_Up = () => {
         const check = await axios.post('/userData/checkUser', {
           email: res.data.email|| "",
         });
+        console.log(check)
         if (check.data == false) {
-          if(res.data.email != null){
+          if(res.data.email){
             navigate('/userData', { state: { email: res.data.email, name: res.data.name } });
           }
         }
@@ -66,7 +67,7 @@ const Sign_Up = () => {
     };
 
     fetchUser();
-  }, []);
+  });
   return (
     <>
       <div className='h-screen w-full flex justify-center items-center p-2'>

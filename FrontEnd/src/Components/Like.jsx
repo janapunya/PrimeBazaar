@@ -28,8 +28,9 @@ const Like = () => {
 
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
         {likedProducts.map((product,index) => (
-         <Link to={`/product/${product._id}`}> <div
-            key={index}
+         <Link to={`/product/${product._id}`}>
+           <div
+            key={product._id}
             className="rounded-2xl bg-white shadow-md hover:shadow-xl transition overflow-hidden border-2 border-amber-400"
           >
 

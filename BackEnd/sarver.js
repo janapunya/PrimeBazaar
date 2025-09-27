@@ -20,6 +20,7 @@ const Likeproduct =require('./src/routs/Like')
 const Order =require('./src/routs/Order')
 const searchProduct = require('./src/routs/searchProduct')
 
+// https://prime-bazaar-one.vercel.app
 
 app.use(express.json());
 app.use(cookieParser());

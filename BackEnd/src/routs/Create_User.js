@@ -11,12 +11,13 @@ router.post("/newUser", async (req,res)=>{
             phnumber,
             email,
         })
-        const token =jwt.sign({email},process.env.VWT_COOKIE_SECRET);
-        res.cookie('auth_token', token, {
-            httpOnly: true,
-            secure: true,
-            maxAge: 86400000, // 1 day
-          });
+        const token =jwt.sign({email} ,process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
+            res.cookie("auth_token", token, {
+                httpOnly: true,
+                sameSite: "none",
+                secure: true,
+                maxAge: 86400000,
+              });
         res.status(201).json({
             message:"New user connected",
             submituser:true
@@ -33,26 +34,26 @@ router.post("/newUser", async (req,res)=>{
 
 
 router.post("/checkUser", async (req,res)=>{
-    const {email}= req.body || "";
+    const {email}= req.body || {};
     console.log(email)
     try{
-        if(email == ""){
+        if(!email){
             return res.send(false);
         }
         const responce= await user.findOne({email:email});
         if(!responce){
            return res.send(false);
         }
-        else{
+
             const token =jwt.sign({email} ,process.env.VWT_COOKIE_SECRET,{ expiresIn: "1d" });
             res.cookie("auth_token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
                 sameSite: "none",
+                secure: true,
                 maxAge: 86400000,
               });
             return res.send(true);
-        }
+
         
     }
     catch(err){
